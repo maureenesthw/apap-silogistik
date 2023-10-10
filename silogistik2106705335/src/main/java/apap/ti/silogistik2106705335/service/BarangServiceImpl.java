@@ -26,7 +26,7 @@ public class BarangServiceImpl implements BarangService {
     }
 
     @Override
-    public Barang getKaryawanById(String skuBarang) {
+    public Barang getBarangBySku(String skuBarang) {
         for (Barang barang : getAllBarang()) {
             if (barang.getSku().equals(skuBarang)) {
                 return barang;

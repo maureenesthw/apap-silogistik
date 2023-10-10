@@ -1,5 +1,6 @@
 package apap.ti.silogistik2106705335.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,17 @@ public class GudangBarangServiceImpl implements GudangBarangService {
             }
         }
         return null;
+    }
+
+    @Override
+    public List<GudangBarang> getAllGudangBarangBySku(String sku) {
+        List<GudangBarang> listGudangBarang = new ArrayList<>();
+        for (GudangBarang gudangBarang : getAllGudangBarang()) {
+            if (gudangBarang.getBarang().getSku().equals(sku)) {
+                listGudangBarang.add(gudangBarang);
+            }
+        }
+        return listGudangBarang;
     }
     
 }
