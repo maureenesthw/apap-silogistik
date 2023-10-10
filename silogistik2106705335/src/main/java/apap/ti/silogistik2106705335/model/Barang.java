@@ -50,22 +50,4 @@ public class Barang {
     @OneToMany(mappedBy = "barang", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PermintaanPengirimanBarang> listPermintaanPengirimanBarang;
 
-    // taro di serviceImpl
-    // public Barang(@NotNull Integer tipeBarang, @NotNull String merk, @NotNull
-    // Long hargaBarang) {
-    // this.tipeBarang = tipeBarang;
-    // this.merk = merk;
-    // this.hargaBarang = hargaBarang;
-    // this.sku = generateSku(tipeBarang);
-    // }
-
-    // private String generateSku(Integer tipeBarang) {
-    // String typePrefix = typePrefix(tipeBarang);
-
-    // // listBarang = get list of barang with sku contain typePrefix
-    // // int skuNum = listBarang.size + 1;
-
-    // return typePrefix; // + skuNum;
-    // }
-
 }

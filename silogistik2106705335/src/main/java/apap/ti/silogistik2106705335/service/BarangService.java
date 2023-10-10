@@ -10,6 +10,6 @@ public interface BarangService {
 
     List<Barang> getAllBarang();
 
-    Barang getKaryawanById(String skuBarang);
+    Barang getBarangBySku(String skuBarang);
     
 }
