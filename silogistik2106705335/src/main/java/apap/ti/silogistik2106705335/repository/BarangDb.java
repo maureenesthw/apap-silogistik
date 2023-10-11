@@ -9,4 +9,5 @@ import apap.ti.silogistik2106705335.model.Barang;
 
 @Repository
 public interface BarangDb extends JpaRepository<Barang, String> {
+    List<Barang> findAllByOrderByMerk();
 }

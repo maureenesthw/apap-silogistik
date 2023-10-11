@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import apap.ti.silogistik2106705335.model.Barang;
 import apap.ti.silogistik2106705335.model.Gudang;
 import apap.ti.silogistik2106705335.repository.GudangDb;
 
@@ -32,6 +33,16 @@ public class GudangServiceImpl implements GudangService {
             }
         }
         return null;
+    }
+
+    @Override
+    public Gudang updateGudang(Gudang gudangFromDTO) {
+        Gudang gudang = getGudangById(gudangFromDTO.getId());
+        if (gudang != null) {
+            gudang.setListGudangBarang(gudangFromDTO.getListGudangBarang());
+            gudangDb.save(gudang);
+        }
+        return gudang;
     }
     
 }

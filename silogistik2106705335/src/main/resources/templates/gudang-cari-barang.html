@@ -23,14 +23,23 @@
     </div>
 
     <div class="container mt-4">
-        <form th:if="${listBarang != null}" th:each="barang, iterationStatus : ${listBarang}" id="searchForm" action="/gudang/cari-barang" method="GET">
-            <div class="form-group">
-                <select class="form-control" id="searchDropdown" name="sku">
-                    <option th:value="${barang.sku}" th:text="${barang.sku}"></option>
-                </select>
+        
+        <form action="/gudang/cari-barang" method="GET">
+            <div class="container mt-6 text-center d-flex justify-content-center">
+                <div class="mr-2 flex-grow-1">
+                    <select class="form-control" id="searchDropdown" name="sku">
+                        <option th:if="${sku == null}" value="">-- Select Barang --</option>
+                        <th:block th:each="barang, iterationStatus : ${listBarang}">
+                            <option th:value="${barang.sku}" th:text="${barang.merk}" th:selected="${sku == barang.sku}"></option>
+                        </th:block>
+                    </select>
+                </div>
+                <div class="mr-2">
+                    <button type="submit" class="btn btn-primary">Cari</button>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Cari</button>
         </form>
+        
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -44,9 +53,9 @@
                 <tr>
                     <td th:text="${iterationStatus.count}" scope="row"></td>
                     <td>
-                        <a th:text="${gudangBarang.nama}" th:href="@{/gudang/{id}(id=${gudangBarang.gudang.id})}" class="btn btn-link"></a>
+                        <a th:text="${gudangBarang.gudang.nama}" th:href="@{/gudang/{id}(id=${gudangBarang.gudang.id})}" class="text-primary font-weight-bold text-decoration-none"></a>
                     </td>
-                    <td th:text="${gudangBarang.alamatGudang}"></td>
+                    <td th:text="${gudangBarang.gudang.alamatGudang}"></td>
                     <td th:text="${gudangBarang.stok}"></td>
                 </tr>
             </tbody>

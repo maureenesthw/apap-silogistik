@@ -5,11 +5,13 @@ import java.util.List;
 import apap.ti.silogistik2106705335.model.Gudang;
 
 public interface GudangService {
-    
+
     void saveGudang(Gudang gudang);
 
     List<Gudang> getAllGudang();
 
     Gudang getGudangById(Long idGudang);
-    
+
+    Gudang updateGudang(Gudang gudangFromDTO);
+
 }
