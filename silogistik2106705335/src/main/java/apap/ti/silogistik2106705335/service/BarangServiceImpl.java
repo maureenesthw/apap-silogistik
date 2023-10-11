@@ -22,7 +22,7 @@ public class BarangServiceImpl implements BarangService {
 
     @Override
     public List<Barang> getAllBarang() {
-        return barangDb.findAll();
+        return barangDb.findAllByOrderByMerk();
     }
 
     @Override
