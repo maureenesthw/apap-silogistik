@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class CreateBarangRequestDTO {
 
-    private Integer tipeBarang;
+    private String tipeBarang;
 
     private String merk;
 
