@@ -35,31 +35,43 @@ public class BarangServiceImpl implements BarangService {
         return null;
     }
 
+    @Override
+    public Barang updateBarang(Barang barangFromDto) {
+        Barang barang = getBarangBySku(barangFromDto.getSku());
+        if (barang != null) {
+            barang.setMerk(barangFromDto.getMerk());
+            barang.setTipeBarang(barangFromDto.getTipeBarang());
+            barang.setHargaBarang(barangFromDto.getHargaBarang());
+            barangDb.save(barang);
+        }
+        return barang;
+    }
+
     private String generateSKU(Integer tipeBarang) {
         String typePrefix;
-    
+
         switch (tipeBarang) {
-        case 1:
-        typePrefix = "ELEC";
-        break;
-        case 2:
-        typePrefix = "CLOT";
-        break;
-        case 3:
-        typePrefix = "FOOD";
-        break;
-        case 4:
-        typePrefix = "COSM";
-        break;
-        case 5:
-        typePrefix = "TOOL";
-        break;
-        default:
-        throw new IllegalArgumentException("Invalid tipe_barang value");
+            case 1:
+                typePrefix = "ELEC";
+                break;
+            case 2:
+                typePrefix = "CLOT";
+                break;
+            case 3:
+                typePrefix = "FOOD";
+                break;
+            case 4:
+                typePrefix = "COSM";
+                break;
+            case 5:
+                typePrefix = "TOOL";
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid tipe_barang value");
         }
 
-        String count = String.format("%03d", barangDb.count()+1L);
-    
+        String count = String.format("%03d", barangDb.count() + 1L);
+
         return typePrefix + count;
-        }
+    }
 }

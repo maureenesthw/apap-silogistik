@@ -11,5 +11,7 @@ public interface BarangService {
     List<Barang> getAllBarang();
 
     Barang getBarangBySku(String skuBarang);
+
+    Barang updateBarang(Barang barangFromDto);
     
 }
