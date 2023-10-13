@@ -61,7 +61,7 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Waktu Pengiriman</th>
+                    <th scope="col">Waktu Permintaan</th>
                     <th scope="col">Nomor Pengiriman</th>
                     <th scope="col">Nama Penerima</th>
                     <th scope="col">Alamat Penerima</th>
@@ -71,7 +71,7 @@
             <tbody th:each="permintaanPengiriman, iterationStatus : ${listPermintaanPengiriman}">
                 <tr>
                     <td th:text="${iterationStatus.count}" scope="row"></td>
-                    <td th:text="${#dates.format(permintaanPengiriman.waktuPermintaan, 'dd-MM-yyyy, HH:mm:ss')}"></td>
+                    <td th:text="${#dates.format(permintaanPengiriman.waktuPermintaan, 'dd-MM-yyyy, HH:mm')}"></td>
                     <td>
                         <a th:text="${permintaanPengiriman.nomorPengiriman}" th:href="@{/permintaan-pengiriman/{id}(id=${permintaanPengiriman.id})}" class="text-primary font-weight-bold text-decoration-none"></a>
                     </td>

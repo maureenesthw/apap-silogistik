@@ -18,9 +18,9 @@
     <div class="container mt-4">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <h1>Detail Permintaan Pengiriman</h1>
+                <h2>Detail Permintaan Pengiriman</h2>
                 <a th:if="${permintaanPengiriman.isCancelled == false}" type="button" class="btn btn-md btn-danger btn-auto" th:href="@{/permintaan-pengiriman/delete/{id}(id=${permintaanPengiriman.id})}">Cancel Permintaan</a>
-                <p th:if="${permintaanPengiriman.isCancelled == true}" class="card-text"><span class="font-weight-bold text-danger">Permintaan Pengiriman Cancelled</span></p>
+                <p th:if="${permintaanPengiriman.isCancelled == true}" class="card-text"><span class="badge text-danger">Permintaan dibatalkan</span></p>
             </div>
 
             <div class="card-body">
@@ -32,7 +32,7 @@
                     </p>
                     <p class="card-text">
                         <span class="font-weight-bold">Waktu Permintaan</span>
-                        <span th:text="': ' + ${#dates.format(permintaanPengiriman.waktuPermintaan, 'dd-MM-yyyy, HH:mm:ss')}"></span>
+                        <span th:text="': ' + ${#dates.format(permintaanPengiriman.waktuPermintaan, 'dd-MM-yyyy, HH:mm')}"></span>
                     </p>
                     <p class="card-text">
                         <span class="font-weight-bold">Karyawan Bertugas</span>
