@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import apap.ti.silogistik2106705335.model.PermintaanPengiriman;
@@ -30,7 +31,8 @@ public class PermintaanPengirimanServiceImpl implements PermintaanPengirimanServ
 
     @Override
     public List<PermintaanPengiriman> getAllPermintaanPengiriman() {
-        return permintaanPengirimanDb.findAll();
+        Sort sort = Sort.by(Sort.Order.desc("waktuPermintaan"));
+        return permintaanPengirimanDb.findAll(sort);
     }
 
     @Override
@@ -41,6 +43,13 @@ public class PermintaanPengirimanServiceImpl implements PermintaanPengirimanServ
             }
         }
         return null;
+    }
+
+    @Override
+    public PermintaanPengiriman cancelPermintaanPengiriman(PermintaanPengiriman permintaanPengiriman) {
+        permintaanPengiriman.setCancelled(true);
+        permintaanPengirimanDb.save(permintaanPengiriman);
+        return permintaanPengiriman;
     }
 
     private int countJumlahBarang(List<PermintaanPengirimanBarang> listPermintaanPengirimanBarang) {

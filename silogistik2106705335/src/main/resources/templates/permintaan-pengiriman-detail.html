@@ -19,26 +19,46 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h1>Detail Permintaan Pengiriman</h1>
-                <a type="button" class="btn btn-md btn-danger btn-auto" th:href="@{/permintaan-pengiriman/delete/{id}(id=${permintaanPengiriman.id})}">Cancel Permintaan</a>
+                <a th:if="${permintaanPengiriman.isCancelled == false}" type="button" class="btn btn-md btn-danger btn-auto" th:href="@{/permintaan-pengiriman/delete/{id}(id=${permintaanPengiriman.id})}">Cancel Permintaan</a>
+                <p th:if="${permintaanPengiriman.isCancelled == true}" class="card-text"><span class="font-weight-bold text-danger">Permintaan Pengiriman Cancelled</span></p>
             </div>
 
             <div class="card-body">
-                <p class="card-text"><span class="font-weight-bold">No. Permintaan Pengiriman:</span> <span th:text="${permintaanPengiriman.nomorPengiriman}"></span></p>
-                <p class="card-text">
-                    <span class="font-weight-bold">Waktu Permintaan:</span>
-                    <span th:text="${#dates.format(permintaanPengiriman.waktuPermintaan, 'dd-MM-yyyy HH:mm:ss')}"></span>
-                </p>
-                <p class="card-text"><span class="font-weight-bold">Waktu Permintaan:</span> <span th:text="${permintaanPengiriman.waktuPermintaan}"></span></p>
-                <p class="card-text"><span class="font-weight-bold">Karyawan Bertugas:</span> <span th:text="${permintaanPengiriman.karyawan.nama}"></span></p>
-                <p class="card-text">
-                    <span class="font-weight-bold">Waktu Pengiriman:</span>
-                    <span th:text="${#dates.format(permintaanPengiriman.tanggalPengiriman, 'dd-MM-yyyy')}"></span>
-                </p>
-                <p class="card-text"><span class="font-weight-bold">Waktu Pengiriman:</span> <span th:text="${permintaanPengiriman.tanggalPengiriman}"></span></p>
-                <p class="card-text"><span class="font-weight-bold">Nama Penerima:</span> <span th:text="${permintaanPengiriman.namaPenerima}"></span></p>
-                <p class="card-text"><span class="font-weight-bold">Alamat Penerima:</span> <span th:text="${permintaanPengiriman.alamatPenerima}"></span></p>
-                <p class="card-text"><span class="font-weight-bold">Jenis Layanan:</span> <span th:text="${jenisLayanan}"></span></p>
-                <p class="card-text"><span class="font-weight-bold">Biaya Pengiriman:</span> <span th:text="${permintaanPengiriman.biayaPengiriman}"></span></p>
+
+                <div class="card-text-columns">
+                    <p class="card-text">
+                        <span class="font-weight-bold">No. Permintaan Pengiriman</span>
+                        <span th:text="': ' + ${permintaanPengiriman.nomorPengiriman}"></span>
+                    </p>
+                    <p class="card-text">
+                        <span class="font-weight-bold">Waktu Permintaan</span>
+                        <span th:text="': ' + ${#dates.format(permintaanPengiriman.waktuPermintaan, 'dd-MM-yyyy, HH:mm:ss')}"></span>
+                    </p>
+                    <p class="card-text">
+                        <span class="font-weight-bold">Karyawan Bertugas</span>
+                        <span th:text="': ' + ${permintaanPengiriman.karyawan.nama}"></span>
+                    </p>
+                    <p class="card-text">
+                        <span class="font-weight-bold">Waktu Pengiriman</span>
+                        <span th:text="': ' + ${#dates.format(permintaanPengiriman.tanggalPengiriman, 'dd-MM-yyyy')}"></span>
+                    </p>
+                    <p class="card-text">
+                        <span class="font-weight-bold">Nama Penerima</span>
+                        <span th:text="': ' + ${permintaanPengiriman.namaPenerima}"></span>
+                    </p>
+                    <p class="card-text">
+                        <span class="font-weight-bold">Alamat Penerima</span>
+                        <span th:text="': ' + ${permintaanPengiriman.alamatPenerima}"></span>
+                    </p>
+                    <p class="card-text">
+                        <span class="font-weight-bold">Jenis Layanan</span>
+                        <span th:text="': ' + ${jenisLayanan}"></span>
+                    </p>
+                    <p class="card-text">
+                        <span class="font-weight-bold">Biaya Pengiriman</span>
+                        <span th:text="': Rp' + ${permintaanPengiriman.biayaPengiriman}"></span>
+                    </p>
+                </div>
 
                 <h3>Daftar barang dipesan</h3>
 
@@ -61,7 +81,7 @@
                                 </td>
                                 <td th:text="${permintaanPengirimanBarang.barang.merk}"></td>
                                 <td th:text="${permintaanPengirimanBarang.kuantitasPengiriman}"></td>
-                                <td th:text="${permintaanPengirimanBarang.barang.hargaBarang * permintaanPengirimanBarang.kuantitasPengiriman}"></td>
+                                <td th:text="'Rp' + ${permintaanPengirimanBarang.barang.hargaBarang * permintaanPengirimanBarang.kuantitasPengiriman}"></td>
                             </tr>
                         </tbody>
                         <tbody th:if="${permintaanPengiriman.listPermintaanPengirimanBarang == null or permintaanPengiriman.listPermintaanPengirimanBarang.isEmpty()}">

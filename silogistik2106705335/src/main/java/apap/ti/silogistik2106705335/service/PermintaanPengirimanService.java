@@ -12,4 +12,6 @@ public interface PermintaanPengirimanService {
 
     PermintaanPengiriman getPermintaanPengirimanById(Long idPermintaanPengiriman);
 
+    PermintaanPengiriman cancelPermintaanPengiriman(PermintaanPengiriman permintaanPengiriman);
+
 }
