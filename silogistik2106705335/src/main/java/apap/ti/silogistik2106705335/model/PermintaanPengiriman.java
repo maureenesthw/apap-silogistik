@@ -34,38 +34,31 @@ public class PermintaanPengiriman {
     @Column(nullable = false)
     private Long id;
 
-    @NotNull
     @Size(max = 16)
-    @Column(name = "nomor_pengiriman")
+    @Column(name = "nomor_pengiriman", nullable = false)
     private String nomorPengiriman;
 
     @NotNull
     @Column(name = "is_cancelled")
     private boolean isCancelled = false;
 
-    @NotNull
-    @Column(name = "nama_penerima")
+    @Column(name = "nama_penerima", nullable = false)
     private String namaPenerima;
 
-    @NotNull
-    @Column(name = "alamat_penerima")
+    @Column(name = "alamat_penerima", nullable = false)
     private String alamatPenerima;
 
-    @NotNull
-    @Column(name = "tanggal_pengiriman")
+    @Column(name = "tanggal_pengiriman", nullable = false)
     private Date tanggalPengiriman;
 
-    @NotNull
-    @Column(name = "biaya_pengiriman")
+    @Column(name = "biaya_pengiriman", nullable = false)
     private Integer biayaPengiriman;
 
-    @NotNull
-    @Column(name = "jenis_layanan")
+    @Column(name = "jenis_layanan", nullable = false)
     private int jenisLayanan; // 1 = Same Day, 2 = Kilat, 3 = Reguler, 4 = Hemat
 
-    @NotNull
     @Temporal(TemporalType.TIMESTAMP) // Use TIMESTAMP for DateTime
-    @Column(name = "waktu_permintaan")
+    @Column(name = "waktu_permintaan", nullable = false)
     private Date waktuPermintaan;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -77,59 +70,4 @@ public class PermintaanPengiriman {
     @OneToMany(mappedBy = "permintaanPengiriman", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PermintaanPengirimanBarang> listPermintaanPengirimanBarang;
 
-    // taro di service
-    // public PermintaanPengiriman(@NotNull boolean isCancelled, @NotNull String
-    // namaPenerima,
-    // @NotNull String alamatPenerima, @NotNull Date tanggalPengiriman, @NotNull
-    // Integer biayaPengiriman,
-    // @NotNull int jenisLayanan, long idKaryawan) {
-    // this.isCancelled = isCancelled;
-    // this.namaPenerima = namaPenerima;
-    // this.alamatPenerima = alamatPenerima;
-    // this.tanggalPengiriman = tanggalPengiriman;
-    // this.biayaPengiriman = biayaPengiriman;
-    // this.jenisLayanan = jenisLayanan;
-    // this.idKaryawan = idKaryawan;
-
-    // // custom
-    // this.waktuPermintaan = new Date();
-    // // TODO
-    // int jumlahBarangDipesan = 1;
-    // this.nomorPengiriman = generateNoPengiriman(jumlahBarangDipesan,
-    // this.jenisLayanan, this.waktuPermintaan);
-    // }
-
-    // private String generateNoPengiriman(int jumlahBarangDipesan, int
-    // jenisLayanan, Date waktuPermintaan) {
-
-    // int lastTwoDigits = jumlahBarangDipesan % 100;
-    // String jumlahBarang = String.format("%02d", lastTwoDigits);
-
-    // // Convert jenisLayanan to its corresponding code
-    // String layananCode;
-    // switch (jenisLayanan) {
-    // case 1:
-    // layananCode = "SAM";
-    // break;
-    // case 2:
-    // layananCode = "KIL";
-    // break;
-    // case 3:
-    // layananCode = "REG";
-    // break;
-    // case 4:
-    // layananCode = "HEM";
-    // break;
-    // default:
-    // throw new IllegalArgumentException("Invalid jenisLayanan");
-    // }
-
-    // // Get the current time in HH:mm:ss format
-    // String timeStamp = new SimpleDateFormat("HH:mm:ss").format(waktuPermintaan);
-
-    // // Combine
-    // String noPengiriman = "REQ" + jumlahBarang + layananCode + timeStamp;
-
-    // return noPengiriman;
-    // }
 }

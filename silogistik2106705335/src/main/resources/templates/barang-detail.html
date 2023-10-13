@@ -33,7 +33,7 @@
                 <p class="card-text"><span class="font-weight-bold">SKU:</span> <span th:text="${barang.sku}"></span></p>
                 <p class="card-text"><span class="font-weight-bold">Tipe Barang:</span> <span th:text="${tipeBarang}"></span></p>
                 <p class="card-text"><span class="font-weight-bold">Total Stok:</span> <span th:text="${totalStok}"></span></p>
-                <p class="card-text"><span class="font-weight-bold">Harga:</span> <span th:text="${barang.hargaBarang}"></span></p>
+                <p class="card-text"><span class="font-weight-bold">Harga:</span> <span th:text="'Rp' + ${barang.hargaBarang}"></span></p>
                 
                 <h3>Daftar gudang</h3>
                         
@@ -51,7 +51,9 @@
                         <tbody th:if="${barang.listGudangBarang != null}" th:each="gudangBarang, iterationStatus : ${barang.listGudangBarang}">
                             <tr>
                                 <td th:text="${iterationStatus.count}" scope="row"></td>
-                                <td th:text="${gudangBarang.gudang.nama}"></td>
+                                <td>
+                                    <a th:href="@{/gudang/{id}(id=${gudangBarang.gudang.id})}" th:text="${gudangBarang.gudang.nama}" class="text-primary font-weight-bold text-decoration-none"></a>
+                                </td>
                                 <td th:text="${gudangBarang.gudang.alamatGudang}"></td>
                                 <td th:text="${gudangBarang.stok}"></td>
                             </tr>

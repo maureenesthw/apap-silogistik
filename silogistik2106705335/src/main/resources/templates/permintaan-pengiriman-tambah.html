@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
+    <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
+    <title>Buat Perimtaan Pengiriman</title>
+</head>
+
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar(page='permintaan-pengiriman')}"></nav>
+
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header">
+                <h1>Buat Perimtaan Pengiriman</h1>
+            </div>
+
+            <div class="card-body">
+                <form th:action="@{/permintaan-pengiriman/tambah}" th:object="${permintaanPengirimanDTO}" method="POST">
+                    
+                    Karyawan Bertugas: <br>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <select class="form-control" name="idKaryawan" id="idKaryawan" th:field="*{karyawan}">
+                                <option th:each="karyawan: ${listKaryawan}"
+                                        th:value="${karyawan.id}" th:text="${karyawan.nama}"></option>
+                                </select>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br><br>
+
+                    Nama Penerima: <br>
+                    <input required class="form-control" type="text" th:field="*{namaPenerima}" />
+                    <br><br>
+
+                    Alamat Penerima: <br>
+                    <input required class="form-control" type="text" th:field="*{alamatPenerima}" />
+                    <br><br>
+
+                    Tanggal Pengiriman: <br>
+                    <input required class="form-control" type="date" th:field="*{tanggalPengiriman}" />
+                    <br><br>
+        
+                    Jenis Layanan: <br>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <select class="form-control" name="jenisLayanan" id="jenisLayanan" th:field="*{jenisLayanan}">
+                                    <option value="1">Same Day</option>
+                                    <option value="2">Kilat</option>
+                                    <option value="3">Reguler</option>
+                                    <option value="4">Hemat</option>
+                                </select>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br><br>
+                    
+                    Biaya Pengiriman: <br>
+                    <input required class="form-control" type="number" th:field="*{biayaPengiriman}" />
+                    <br><br>
+
+                            
+                    <div class="container mt-4">
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary" type="submit" name="addRow" style="text-align:right">+ Tambah Barang</button>
+                        </div>
+
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Barang</th>
+                                    <th scope="col">Kuantitas</th>
+                                </tr>
+                            </thead>
+                            <tbody th:if="${permintaanPengirimanDTO.listPermintaanPengirimanBarang != null}" th:each="permintaanPengirimanBarang, iterationStatus : ${permintaanPengirimanDTO.listPermintaanPengirimanBarang}">
+                                <tr>
+                                    <td th:text="${iterationStatus.count}" scope="row"></td>
+                                    <td>
+                                        <select th:field="*{listPermintaanPengirimanBarang[__${iterationStatus.index}__].barang.sku}" class="form-control">
+                                            <div th:each="barangExisting : ${listBarang}">
+                                                <option th:value="${barangExisting.sku}" th:text="${barangExisting.merk}"></option>
+                                            </div>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input required class="form-control" type="number" th:field="*{listPermintaanPengirimanBarang[__${iterationStatus.index}__].kuantitasPengiriman}" placeholder="Kuantitas Pengiriman"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody th:if="${permintaanPengirimanDTO.listPermintaanPengirimanBarang == null or permintaanPengirimanDTO.listPermintaanPengirimanBarang.isEmpty()}">
+                                <tr>
+                                    <td colspan="6" class="text-center">No data available</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="text-center m-3">
+                            <a type="button" class="btn btn-md btn-danger" th:href="@{/permintaan-pengiriman}">Batal</a>
+                            <button class="btn btn-primary" type="submit">Simpan</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            
+
+        </div>
+    </div>
+
+</body>
+
+</html>

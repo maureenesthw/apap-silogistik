@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
+    <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
+    <title>Filter Permintaan Pengiriman</title>
+</head>
+
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar(page='permintaan-pengiriman')}"></nav>
+    <div class="container text-center">
+            <div class="row pt-5 pb-2">
+                <h1>
+                    Filter Permintaan Pengiriman
+                </h1>
+            </div>
+    </div>
+
+    
+    <form action="/filter-permintaan-pengiriman" method="GET">
+        <div class="container mt-6 text-center d-flex justify-content-center">
+            <div class="mr-2 flex-grow-1">
+                <select class="form-control" id="searchDropdown" name="sku">
+                    <option th:if="${sku == null}" value="">-- Select Barang --</option>
+                    <th:block th:each="barang, iterationStatus : ${listBarang}">
+                        <option th:value="${barang.sku}" th:text="${barang.merk}" th:selected="${sku == barang.sku}"></option>
+                    </th:block>
+                </select>
+            </div>
+        </div>
+        <br>
+
+        <div class="container mt-6 text-center d-flex justify-content-center">
+            <div class="mr-2 flex-grow-1">
+                <div class="d-flex">
+                    <input type="date" class="form-control" name="startDate" placeholder="Start Date">
+                    &emsp;<h6>hingga</h6>&emsp;
+                    <input type="date" class="form-control" name="endDate" placeholder="End Date">
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="container mt-6 text-center d-flex justify-content-end">
+            <div class="mr-2">
+                <button type="submit" class="btn btn-primary">Cari</button>
+            </div>
+        </div>
+
+    </form>
+    
+
+    <div class="container mt-4">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Waktu Permintaan</th>
+                    <th scope="col">Nomor Pengiriman</th>
+                    <th scope="col">Nama Penerima</th>
+                    <th scope="col">Alamat Penerima</th>
+                    <th scope="col">Tanggal Pengiriman</th>
+                </tr>
+            </thead>
+            <tbody th:each="permintaanPengiriman, iterationStatus : ${listPermintaanPengiriman}">
+                <tr>
+                    <td th:text="${iterationStatus.count}" scope="row"></td>
+                    <td th:text="${#dates.format(permintaanPengiriman.waktuPermintaan, 'dd-MM-yyyy, HH:mm')}"></td>
+                    <td>
+                        <a th:text="${permintaanPengiriman.nomorPengiriman}" th:href="@{/permintaan-pengiriman/{id}(id=${permintaanPengiriman.id})}" class="text-primary font-weight-bold text-decoration-none"></a>
+                    </td>
+                    <td th:text="${permintaanPengiriman.namaPenerima}"></td>
+                    <td th:text="${permintaanPengiriman.alamatPenerima}"></td>
+                    <td th:text="${#dates.format(permintaanPengiriman.tanggalPengiriman, 'dd-MM-yyyy')}"></td>
+                </tr>
+            </tbody>
+            <tbody th:if="${listPermintaanPengiriman == null or listPermintaanPengiriman.isEmpty()}">
+                <tr>
+                    <td colspan="6" class="text-center">No data available</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>
