@@ -9,6 +9,8 @@
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
     <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
+    <object th:include="~{fragments/common :: datatables-css}" th:remove="tag"></object>
+    <object th:include="~{fragments/common :: datatables-js}" th:remove="tag"></object>
     <title>Gudang</title>
 </head>
 
@@ -22,9 +24,11 @@
             </div>
     </div>
 
-    <div class="container mt-4">
-        <table class="table">
-            <thead class="thead-dark">
+    <div class="container">
+        
+        <table id="gudangTable" class="table cell-border hover">
+
+            <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nama</th>
@@ -32,6 +36,7 @@
                     <th scope="col">Action</th>
                 </tr>
             </thead>
+            
             <tbody th:each="gudang, iterationStatus : ${listGudang}">
                 <tr>
                     <td th:text="${iterationStatus.count}" scope="row"></td>

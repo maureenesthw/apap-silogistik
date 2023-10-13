@@ -10,6 +10,8 @@ public interface PermintaanPengirimanService {
 
     List<PermintaanPengiriman> getAllPermintaanPengiriman();
 
-    PermintaanPengiriman getGudangById(Long idPermintaanPengiriman);
+    PermintaanPengiriman getPermintaanPengirimanById(Long idPermintaanPengiriman);
+
+    PermintaanPengiriman cancelPermintaanPengiriman(PermintaanPengiriman permintaanPengiriman);
 
 }

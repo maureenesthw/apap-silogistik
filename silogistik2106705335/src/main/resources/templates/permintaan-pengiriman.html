@@ -9,18 +9,18 @@
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <object th:include="~{fragments/common :: js}" th:remove="tag"></object>
     <object th:include="~{fragments/common :: css}" th:remove="tag"></object>
-    <title>Barang</title>
+    <title>Daftar Permintaan Pengiriman</title>
 </head>
 
 <body>
-    <nav th:replace="~{fragments/navbar :: navbar(page='barang')}"></nav>
+    <nav th:replace="~{fragments/navbar :: navbar(page='permintaan-pengiriman')}"></nav>
     <div class="container text-center">
             <div class="row pt-5 pb-2">
                 <h1>
-                    Daftar Barang
+                    Daftar Permintaan Pengiriman
                 </h1>
             </div>
-            <a type="button" class="btn btn-md btn-primary btn-auto" th:href="@{/barang/tambah}">+ Tambah Barang</a>
+            <a type="button" class="btn btn-md btn-primary btn-auto" th:href="@{/permintaan-pengiriman/tambah}">+ Tambah Permintaan Pengiriman</a>
     </div>
 
     <div class="container mt-4">
@@ -28,26 +28,28 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">SKU</th>
-                    <th scope="col">Merk</th>
-                    <th scope="col">Stok</th>
-                    <th scope="col">Harga</th>
+                    <th scope="col">Waktu Permintaan</th>
+                    <th scope="col">Nomor Pengiriman</th>
+                    <th scope="col">Nama Penerima</th>
+                    <th scope="col">Alamat Penerima</th>
+                    <th scope="col">Tanggal Pengiriman</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
-            <tbody th:each="barangDTO, iterationStatus : ${listBarangDTO}">
+            <tbody th:each="permintaanPengiriman, iterationStatus : ${listPermintaanPengiriman}">
                 <tr>
                     <td th:text="${iterationStatus.count}" scope="row"></td>
-                    <td th:text="${barangDTO.sku}"></td>
-                    <td th:text="${barangDTO.merk}"></td>
-                    <td th:text="${barangDTO.totalStok}"></td>
-                    <td th:text="'Rp' + ${barangDTO.hargaBarang}"></td>
+                    <td th:text="${#dates.format(permintaanPengiriman.waktuPermintaan, 'dd-MM-yyyy, HH:mm')}"></td>
+                    <td th:text="${permintaanPengiriman.nomorPengiriman}"></td>
+                    <td th:text="${permintaanPengiriman.namaPenerima}"></td>
+                    <td th:text="${permintaanPengiriman.alamatPenerima}"></td>
+                    <td th:text="${#dates.format(permintaanPengiriman.tanggalPengiriman, 'dd-MM-yyyy')}"></td>
                     <td>
-                        <a type="button" class="btn btn-md btn-secondary" th:href="@{/barang/{id}(id=${barangDTO.sku})}">Detail</a>
+                        <a type="button" class="btn btn-md btn-secondary" th:href="@{/permintaan-pengiriman/{id}(id=${permintaanPengiriman.id})}">Detail</a>
                     </td>
                 </tr>
             </tbody>
-            <tbody th:if="${listBarangDTO == null or listBarangDTO.isEmpty()}">
+            <tbody th:if="${listPermintaanPengiriman == null or listPermintaanPengiriman.isEmpty()}">
                 <tr>
                     <td colspan="6" class="text-center">No data available</td>
                 </tr>
