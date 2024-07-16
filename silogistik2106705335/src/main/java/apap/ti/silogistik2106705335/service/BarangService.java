@@ -13,5 +13,7 @@ public interface BarangService {
     Barang getBarangBySku(String skuBarang);
 
     Barang updateBarang(Barang barangFromDto);
+
+    void deleteBarang(Barang barang);
     
 }

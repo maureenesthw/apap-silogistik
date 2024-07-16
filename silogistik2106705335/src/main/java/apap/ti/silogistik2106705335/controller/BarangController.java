@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import apap.ti.silogistik2106705335.DTO.BarangMapper;
 import apap.ti.silogistik2106705335.DTO.request.CreateBarangRequestDTO;
@@ -134,10 +135,21 @@ public class BarangController {
         return "success";
     }
 
+    @RequestMapping("/barang/{id}/hapus")
+    public String hapusBarang(@PathVariable("id") String id, Model model) {
+        var barang = barangService.getBarangBySku(id);
+        barangService.deleteBarang(barang);
+
+        // Add variabel untuk dirender di thymeleaf
+        model.addAttribute("message", "Barang berhasil dihapus");
+        model.addAttribute("page", "barang");
+        return "success";
+    }
+
     private Integer getTipeBarangFromSku(String sku) {
         // Extract the type prefix from the SKU
         String typePrefix = sku.substring(0, 4);
-    
+
         // Map the type prefix back to the corresponding integer value
         Integer tipeBarang;
         switch (typePrefix) {
@@ -159,7 +171,7 @@ public class BarangController {
             default:
                 throw new IllegalArgumentException("Invalid SKU format");
         }
-    
+
         return tipeBarang;
     }
 

@@ -47,6 +47,12 @@ public class BarangServiceImpl implements BarangService {
         return barang;
     }
 
+    @Override
+    public void deleteBarang(Barang barang) {
+        Barang barangDelete = getBarangBySku(barang.getSku());
+        barangDb.delete(barangDelete);
+    }
+
     private String generateSKU(Integer tipeBarang) {
         String typePrefix;
 

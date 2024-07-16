@@ -44,6 +44,7 @@
                     <td th:text="'Rp' + ${barangDTO.hargaBarang}"></td>
                     <td>
                         <a type="button" class="btn btn-md btn-secondary" th:href="@{/barang/{id}(id=${barangDTO.sku})}">Detail</a>
+                        <a type="button" class="btn btn-md btn-secondary" th:href="@{/barang/{id}/hapus(id=${barangDTO.sku})}">Hapus</a>
                     </td>
                 </tr>
             </tbody>
